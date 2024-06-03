@@ -30,13 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.screen = new System.Windows.Forms.Panel();
+            this.floor = new System.Windows.Forms.PictureBox();
             this.player = new System.Windows.Forms.PictureBox();
             this.gameTick = new System.Windows.Forms.Timer(this.components);
-            this.floor = new System.Windows.Forms.PictureBox();
             this.objectsUpdater = new System.Windows.Forms.Timer(this.components);
+            this.gravityTimer = new System.Windows.Forms.Timer(this.components);
             this.screen.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.player)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.floor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player)).BeginInit();
             this.SuspendLayout();
             // 
             // screen
@@ -49,6 +50,16 @@
             this.screen.Size = new System.Drawing.Size(800, 450);
             this.screen.TabIndex = 0;
             this.screen.Tag = "platform";
+            // 
+            // floor
+            // 
+            this.floor.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.floor.Location = new System.Drawing.Point(0, 426);
+            this.floor.Name = "floor";
+            this.floor.Size = new System.Drawing.Size(800, 24);
+            this.floor.TabIndex = 1;
+            this.floor.TabStop = false;
+            this.floor.Tag = "platform";
             // 
             // player
             // 
@@ -66,20 +77,17 @@
             this.gameTick.Interval = 1;
             this.gameTick.Tick += new System.EventHandler(this.gameTick_Tick);
             // 
-            // floor
-            // 
-            this.floor.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.floor.Location = new System.Drawing.Point(0, 426);
-            this.floor.Name = "floor";
-            this.floor.Size = new System.Drawing.Size(800, 24);
-            this.floor.TabIndex = 1;
-            this.floor.TabStop = false;
-            // 
             // objectsUpdater
             // 
             this.objectsUpdater.Enabled = true;
             this.objectsUpdater.Interval = 10;
             this.objectsUpdater.Tick += new System.EventHandler(this.objectsUpdater_Tick);
+            // 
+            // gravityTimer
+            // 
+            this.gravityTimer.Enabled = true;
+            this.gravityTimer.Interval = 1;
+            this.gravityTimer.Tick += new System.EventHandler(this.gravityTimer_Tick);
             // 
             // Game
             // 
@@ -92,8 +100,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Game_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Game_KeyUp);
             this.screen.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.player)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.floor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -105,6 +113,7 @@
         private System.Windows.Forms.Timer gameTick;
         private System.Windows.Forms.PictureBox floor;
         private System.Windows.Forms.Timer objectsUpdater;
+        private System.Windows.Forms.Timer gravityTimer;
     }
 }
 

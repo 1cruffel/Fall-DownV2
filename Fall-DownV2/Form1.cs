@@ -13,7 +13,7 @@ namespace Fall_DownV2
     public partial class Game : Form
     {
         //declare bools for movement, gravity etc.
-        bool left = false, right = false, falling = false;
+        bool left = false, right = false, isFalling = false, isJumping = false;
 
         public Game()
         {
@@ -36,6 +36,19 @@ namespace Fall_DownV2
             if (e.KeyCode == Keys.Right)
             {
                 right = false;
+            }
+        }
+
+        private void gravityTimer_Tick(object sender, EventArgs e)
+        {
+            if(!player.Bounds.IntersectsWith(floor.Bounds) && isJumping == false)
+            {
+                player.Top += 5;
+                player.BringToFront();
+            }
+            if(player.Bounds.IntersectsWith(floor.Bounds))
+            {
+                player.Top = floor.Top - player.Height;
             }
         }
 
