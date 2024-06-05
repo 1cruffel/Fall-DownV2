@@ -33,7 +33,6 @@
             this.floor = new System.Windows.Forms.PictureBox();
             this.player = new System.Windows.Forms.PictureBox();
             this.gameTick = new System.Windows.Forms.Timer(this.components);
-            this.objectsUpdater = new System.Windows.Forms.Timer(this.components);
             this.gravityTimer = new System.Windows.Forms.Timer(this.components);
             this.screen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.floor)).BeginInit();
@@ -49,7 +48,7 @@
             this.screen.Name = "screen";
             this.screen.Size = new System.Drawing.Size(800, 450);
             this.screen.TabIndex = 0;
-            this.screen.Tag = "platform";
+            this.screen.Tag = "";
             // 
             // floor
             // 
@@ -64,7 +63,7 @@
             // player
             // 
             this.player.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.player.Location = new System.Drawing.Point(493, 289);
+            this.player.Location = new System.Drawing.Point(459, 212);
             this.player.Name = "player";
             this.player.Size = new System.Drawing.Size(25, 25);
             this.player.TabIndex = 0;
@@ -76,12 +75,6 @@
             this.gameTick.Enabled = true;
             this.gameTick.Interval = 1;
             this.gameTick.Tick += new System.EventHandler(this.gameTick_Tick);
-            // 
-            // objectsUpdater
-            // 
-            this.objectsUpdater.Enabled = true;
-            this.objectsUpdater.Interval = 10;
-            this.objectsUpdater.Tick += new System.EventHandler(this.objectsUpdater_Tick);
             // 
             // gravityTimer
             // 
@@ -95,6 +88,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.screen);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Game";
             this.Text = "Get Down";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Game_KeyDown);
@@ -112,7 +106,6 @@
         private System.Windows.Forms.PictureBox player;
         private System.Windows.Forms.Timer gameTick;
         private System.Windows.Forms.PictureBox floor;
-        private System.Windows.Forms.Timer objectsUpdater;
         private System.Windows.Forms.Timer gravityTimer;
     }
 }

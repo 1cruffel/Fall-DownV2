@@ -13,18 +13,19 @@ namespace Fall_DownV2
     public partial class Game : Form
     {
         //declare bools for movement, gravity etc.
-        bool left = false, right = false, isFalling = false, isJumping = false;
+        bool left = false, right = false, isFalling = false, isJumping = false, onPlatform = false;
+        int force;
+        int G = 10;
+        const int PLATS_SET = 1;
+        int plats;
 
         public Game()
         {
             InitializeComponent();
-        }
-
-        private void objectsUpdater_Tick(object sender, EventArgs e)
-        {
             floor.Width = screen.Width;
             floor.Left = 0;
             floor.Top = screen.Height - floor.Height;
+            force = G;
         }
 
         private void Game_KeyUp(object sender, KeyEventArgs e)
@@ -41,14 +42,10 @@ namespace Fall_DownV2
 
         private void gravityTimer_Tick(object sender, EventArgs e)
         {
-            if(!player.Bounds.IntersectsWith(floor.Bounds) && isJumping == false)
+            if (isFalling)
             {
                 player.Top += 5;
                 player.BringToFront();
-            }
-            if(player.Bounds.IntersectsWith(floor.Bounds))
-            {
-                player.Top = floor.Top - player.Height;
             }
         }
 
@@ -62,6 +59,11 @@ namespace Fall_DownV2
             {
                 right = true;
             }
+            if(e.KeyCode == Keys.Up && onPlatform == true)
+            {
+                isJumping = true;
+                force = G;
+            }
         }
         private void gameTick_Tick(object sender, EventArgs e)
         {
@@ -72,6 +74,40 @@ namespace Fall_DownV2
             if (right == true)
             {
                 player.Left += 5;
+            }
+            if (isJumping)
+            {
+                if (force > 0 && isFalling == false)
+                {
+                    player.Top -= force;
+                    force = -2;
+                }
+            }
+            if(onPlatform == true)
+            {
+                isFalling = false;
+                isJumping = false;
+            }
+
+            foreach (Control x in this.Controls)
+            {
+                plats = 0;
+                if (x is PictureBox)
+                {
+                    if ((string)x.Tag == "platform")
+                    {
+                        if (player.Bounds.IntersectsWith(x.Bounds))
+                        {
+                            onPlatform = true;
+                            isFalling = false;
+                            isJumping = false;
+                        }
+                        else
+                        {
+                            plats += 1;
+                        }
+                    }
+                }
             }
         }
     }
